@@ -52,14 +52,15 @@ export class ChunkedStream<T> extends TransformStream<T | T[], T[]> {
     } else {
       this.#chunk.push(chunk);
     }
-    if (this.#first) {
-      this.#first = false;
-    } else if (this.#chunkSize2nd && this.#chunkSize !== this.#chunkSize2nd) {
-      this.#chunkSize = this.#chunkSize2nd;
-    }
     if (this.#chunk.length >= this.#chunkSize) {
       controller.enqueue(this.#chunk);
       this.#chunk = [];
+      if (this.#first) {
+        this.#first = false;
+        if (this.#chunkSize2nd && this.#chunkSize !== this.#chunkSize2nd) {
+          this.#chunkSize = this.#chunkSize2nd;
+        }
+      }
     }
   }
 
