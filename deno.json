@@ -1,0 +1,9 @@
+{
+  "imports": {
+    "https://deno.land/x/chunked_stream@$VERSION/": "./"
+  },
+  "lock": false,
+  "tasks": {
+    "test": "deno test --doc"
+  }
+}
