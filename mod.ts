@@ -4,9 +4,9 @@
  */
 
 export interface ChunkedStreamOptions {
-  /* Chunk size of stream (default: 1) */
+  /** Chunk size of stream (default: 1) */
   chunkSize: number;
-  /* Chunk size of stream used except first enqueuing */
+  /** Chunk size of stream used except first enqueuing */
   chunkSize2nd?: number;
 }
 
@@ -14,17 +14,21 @@ export interface ChunkedStreamOptions {
  *
  * @example
  * ```ts
- * import { TextLineStream } from "https://deno.land/std@$STD_VERSION/streams/text_line_stream.ts";
  * import { ChunkedStream } from "https://deno.land/x/chunked_stream@$VERSION/mod.ts";
  *
- * const stream = (await Deno.open("./README.md")).readable
- *   .pipeThrough(new TextDecoderStream())
- *   .pipeThrough(new TextLineStream())
- *   .pipeThrough(new ChunkedStream({ chunkSize: 2 }));
+ * const stream = new ReadableStream({
+ *   start(controller) {
+ *     let i = 0;
+ *     while (true) {
+ *       controller.enqueue(i);
+ *       i++;
+ *     }
+ *   },
+ * })
+ *   .pipeThrough(new ChunkedStream({ chunkSize: 4 }));
  *
- * for await (const text of stream) {
- *   console.log(text); // ["# deno-chunked-stream", ""]
- *   break;
+ * for await (const chunk of stream) {
+ *   console.log(chunk); // [0, 1, 2, 3], [4, 5, 6, 7], ...
  * }
  * ```
  */
