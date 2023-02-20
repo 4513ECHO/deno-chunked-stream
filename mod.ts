@@ -14,9 +14,18 @@ export interface ChunkedStreamOptions {
  *
  * @example
  * ```ts
+ * import { TextLineStream } from "https://deno.land/std@$STD_VERSION/streams/text_line_stream.ts";
+ * import { assertEquals } from "https://deno.land/std@$STD_VERSION/testing/asserts.ts";
  * import { ChunkedStream } from "https://deno.land/x/chunked_stream@$VERSION/mod.ts";
- * new ReadableStream()
- *   .pipeThrough(new ChunkedStream({ chunkSize: 100 }))
+ *
+ * const stream = (await Deno.open("./README.md")).readable
+ *  .pipeThrough(new TextDecoderStream())
+ *  .pipeThrough(new TextLineStream())
+ *  .pipeThrough(new ChunkedStream({ chunkSize: 2 }));
+ *
+ * for await (const result of stream) {
+ *  assertEquals(result, ["# deno-chunked-stream", ""]);
+ * }
  * ```
  */
 export class ChunkedStream<T> extends TransformStream<T | T[], T[]> {
