@@ -5,6 +5,6 @@
   },
   "lock": false,
   "tasks": {
-    "test": "deno test --doc"
+    "test": "deno test --doc --parallel"
   }
 }
