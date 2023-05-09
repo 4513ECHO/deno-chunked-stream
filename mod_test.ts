@@ -12,6 +12,17 @@ function testStream(): ReadableStream<number> {
   });
 }
 
+function testArrayStream(): ReadableStream<number[]> {
+  return new ReadableStream({
+    start(controller) {
+      for (let i = 0; i < 13; i++) {
+        controller.enqueue([i]);
+      }
+      controller.close();
+    },
+  });
+}
+
 Deno.test("ChunkedStream", async () => {
   const result = [];
   for await (const chunk of testStream().pipeThrough(new ChunkedStream())) {
@@ -75,5 +86,21 @@ Deno.test("ChunkedStream - large chunkSize", async () => {
   }
   assertEquals(result, [
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  ]);
+});
+
+Deno.test("ChunkedStream - array", async () => {
+  const result = [];
+  for await (
+    const chunk of testArrayStream()
+      .pipeThrough(new ChunkedStream({ chunkSize: 4 }))
+  ) {
+    result.push(chunk);
+  }
+  assertEquals(result, [
+    [0, 1, 2, 3],
+    [4, 5, 6, 7],
+    [8, 9, 10, 11],
+    [12],
   ]);
 });
