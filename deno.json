@@ -1,9 +1,9 @@
 {
   "exports": "./mod.ts",
   "lock": false,
-  "name": "@4513echo/chunked-stream",
+  "name": "@hibiki/chunked-stream",
   "tasks": {
     "test": "deno test --doc --parallel --coverage=cov_profile && deno coverage cov_profile && rm -rf cov_profile"
   },
-  "version": "0.1.3"
+  "version": "0.1.4"
 }
