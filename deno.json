@@ -1,9 +1,9 @@
 {
-  "imports": {
-    "https://deno.land/x/chunked_stream@$VERSION/": "./"
-  },
+  "exports": "./mod.ts",
   "lock": false,
+  "name": "@4513echo/chunked-stream",
   "tasks": {
     "test": "deno test --doc --parallel --coverage=cov_profile && deno coverage cov_profile && rm -rf cov_profile"
-  }
+  },
+  "version": "0.1.3"
 }
