@@ -1,9 +1,30 @@
 {
+  "name": "@4513echo/chunked-stream",
+  "version": "0.0.0",
   "exports": "./mod.ts",
-  "lock": false,
-  "name": "@hibiki/chunked-stream",
-  "tasks": {
-    "test": "deno test --doc --parallel --coverage=cov_profile && deno coverage cov_profile && rm -rf cov_profile"
+  "publish": {
+    "exclude": [
+      "*_test.ts",
+      "*.md"
+    ]
   },
-  "version": "0.1.4"
+  "compilerOptions": {
+    "noUncheckedIndexedAccess": true,
+    "useUnknownInCatchVariables": true
+  },
+  "lint": {
+    "rules": {
+      "include": [
+        "eqeqeq"
+      ],
+      "tags": [
+        "recommended"
+      ]
+    }
+  },
+  "lock": false,
+  "tasks": {
+    "check": "deno fmt --check && deno lint && deno check **/*.ts **/*.tsx",
+    "test": "deno test --doc --parallel --coverage=cov_profile && deno coverage cov_profile && rm -rf cov_profile"
+  }
 }

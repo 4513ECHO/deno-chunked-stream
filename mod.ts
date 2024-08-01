@@ -14,7 +14,7 @@ export interface ChunkedStreamOptions {
  *
  * @example
  * ```ts
- * import { ChunkedStream } from "https://deno.land/x/chunked_stream@$MODULE_VERSION/mod.ts";
+ * import { ChunkedStream } from "jsr:@4513echo/chunked-stream";
  *
  * const stream = new ReadableStream({
  *   start(controller) {
